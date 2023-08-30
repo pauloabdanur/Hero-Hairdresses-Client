@@ -46,7 +46,7 @@ export const Schedules = () => {
     resolver: yupResolver(schema),
   });
   const currentDate = new Date().toISOString().split('T')[0];
-  const { availableSchedules, schedules, date, handleSetDate } = useAuth();
+  const { availableSchedules, schedules, handleSetDate } = useAuth();
   const navigate = useNavigate();
 
   const filteredDate = availableSchedules.filter((hour) => {

@@ -23,15 +23,6 @@ import { api } from '../../server';
 import { isAxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-interface IProfileFormValues {
-  picture: File[];
-  name: string;
-  email: string;
-  password: string;
-  newPassword: string;
-  confirmPassword: string;
-}
-
 export const EditProfile = () => {
   const [fileUpload, setFileUpload] = useState(defaultPic);
   const navigate = useNavigate();
@@ -50,14 +41,17 @@ export const EditProfile = () => {
   }, []);
 
   const schema = yup.object().shape({
+    picture: yup.mixed(),
     name: yup.string(),
+    email: yup.string(),
+    password: yup.string(),
     newPassword: yup.string(),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref('newPassword')], 'senha devem ser iguais'),
   });
 
-  const { register, handleSubmit, setValue } = useForm<IProfileFormValues>({
+  const { register, handleSubmit, setValue } = useForm({
     resolver: yupResolver(schema),
   });
 
